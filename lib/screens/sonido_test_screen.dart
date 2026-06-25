@@ -152,7 +152,7 @@ class _SonidoTestScreenState extends State<SonidoTestScreen> {
     _timer.stop();
     final ms = _timer.elapsedMilliseconds;
     final correcta = idx == _correctIdx;
-    final pts = correcta ? max(1, (5000 - ms) ~/ 1000) : 0;
+    final pts = correcta ? max(1, 10 - ((ms - 1) ~/ 100)) : 0;
     setState(() {
       _selectedIdx = idx;
       _puntos += pts;

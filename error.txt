@@ -1,0 +1,15 @@
+el juego funciona , pero faltan algunos detalles . en el test de reaccion si
+el participante presiona antes de tiempo pierde , debe tener 6 oportunidades
+el primero para aparecer quitar el boton reset en el test de reaccion solo
+dejar iniciar . si presiona antes de tiempo de que aparesca la señal , pierde
+la oportunidad de sumar y se incrementa la cantidad de oportunidades. Detalles
+en el test de colores y test de paises debe poner el primero 1.5 segundos
+despues que entra en ese menu . en el test de sonidos . agregar que cuanto mas
+rapido responde y correcto mas puntaje . cada 100ms es el puntaje . por
+ejemplo si presiona a los 100ms 10 puntos si responde a los 400ms 6 puntos
+
+y cuanto mas tarda y pasa de los 1000ms o mas un solo punto .compilar y subir
+al movil . no borrar sino reemplazar esto es una regla que debe estar en RULES.
+md de docs crear todos los .md necesarios alojarlos alli . completarlos TODO.
+md arquitectura.md , API,md , crear VERSION dejar en prime plana a cada pusheo
+poner tag y dejarlo en version. pushear todo

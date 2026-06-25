@@ -15,6 +15,7 @@ class _ReaccionScreenState extends State<ReaccionScreen> {
   ReaccionState _rState = ReaccionState.idle;
   final List<int> _times = [];
   int _count = 0;
+  int _errores = 0;
   int _startTime = 0;
   Color _bgColor = AppTheme.grayLight;
   String _texto = 'Presioná Iniciar';
@@ -24,7 +25,7 @@ class _ReaccionScreenState extends State<ReaccionScreen> {
 
   void _startTest() {
     if (_rState == ReaccionState.result || _rState == ReaccionState.idle) {
-      if (_count >= 5) {
+      if (_count >= 6) {
         _completado = true;
         setState(() {});
         return;
@@ -64,31 +65,25 @@ class _ReaccionScreenState extends State<ReaccionScreen> {
         else { _perf = 'Lento'; }
         _texto = '$t ms  $_perf';
       });
-      if (_count >= 5) {
+      if (_count >= 6) {
         _completado = true;
       } else {
         Future.delayed(const Duration(seconds: 1), _startTest);
       }
     } else if (_rState == ReaccionState.waiting) {
+      _count++;
       setState(() {
         _rState = ReaccionState.idle;
         _bgColor = AppTheme.errorLight;
-        _texto = 'Muy rápido  Presioná Iniciar de nuevo';
+        _texto = '¡Presionaste antes de tiempo! Oportunidad perdida.';
+        _errores++;
       });
+      if (_count >= 6) {
+        _completado = true;
+      } else {
+        Future.delayed(const Duration(seconds: 1), _startTest);
+      }
     }
-  }
-
-  void _reset() {
-    setState(() {
-      _rState = ReaccionState.idle;
-      _bgColor = AppTheme.grayLight;
-      _texto = 'Presioná Iniciar';
-      _times.clear();
-      _count = 0;
-      _lastTime = null;
-      _perf = '';
-      _completado = false;
-    });
   }
 
   void _finalizar() {
@@ -140,6 +135,8 @@ class _ReaccionScreenState extends State<ReaccionScreen> {
               const SizedBox(height: 12),
               Text('$prom ms', style: AppTheme.headline.copyWith(fontSize: 32)),
               Text('Promedio', style: AppTheme.caption),
+              const SizedBox(height: 4),
+              Text('Oportunidades perdidas: $_errores', style: AppTheme.caption),
               const SizedBox(height: 4),
               Text(
                 prom < 180 ? 'Excelente' : prom < 250 ? 'Bueno' : prom < 350 ? 'Normal' : 'Lento',
@@ -209,25 +206,16 @@ class _ReaccionScreenState extends State<ReaccionScreen> {
               ),
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: _startTest,
-                  style: AppTheme.minimalPrimary,
-                  child: const Text('Iniciar'),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: OutlinedButton(
-                  onPressed: _reset,
-                  style: AppTheme.minimalButton,
-                  child: const Text('Reset'),
-                ),
-              ),
-            ],
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: _startTest,
+              style: AppTheme.minimalPrimary,
+              child: const Text('Iniciar'),
+            ),
           ),
+          const SizedBox(height: 4),
+          Text('Oportunidad $_count/6  •  Perdidas: $_errores', style: AppTheme.caption),
           const Spacer(flex: 1),
           const SizedBox(height: 16),
           if (_times.isNotEmpty) ...[

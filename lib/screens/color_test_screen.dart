@@ -48,7 +48,7 @@ class _ColorTestScreenState extends State<ColorTestScreen> {
   Future<void> _cargarDuracion() async {
     final prefs = await SharedPreferences.getInstance();
     _duracionMs = (prefs.getDouble('colorDuracionMs') ?? 300).round();
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         setState(() => _preparando = false);
         _nuevaRonda();

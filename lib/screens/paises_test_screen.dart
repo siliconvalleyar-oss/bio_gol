@@ -44,7 +44,7 @@ class _PaisesTestScreenState extends State<PaisesTestScreen> {
   Future<void> _cargarDuracion() async {
     final prefs = await SharedPreferences.getInstance();
     _duracionMs = (prefs.getDouble('paisDuracionMs') ?? 200).round();
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(milliseconds: 1500), () {
       if (mounted) {
         setState(() => _preparando = false);
         _nuevaRonda();
