@@ -52,6 +52,13 @@ class _PaisesTestScreenState extends State<PaisesTestScreen> {
     });
   }
 
+  int _getDisplayMs() {
+    const startMs = 100;
+    const endMs = 40;
+    final step = (startMs - endMs) / (_totalRondas - 1);
+    return (startMs - _ronda * step).round().clamp(endMs, startMs);
+  }
+
   void _nuevaRonda() {
     if (_ronda >= _totalRondas) {
       setState(() => _terminado = true);
@@ -77,7 +84,8 @@ class _PaisesTestScreenState extends State<PaisesTestScreen> {
     });
     _timer.reset();
     _timer.start();
-    Future.delayed(Duration(milliseconds: _duracionMs), () {
+    final displayMs = _getDisplayMs();
+    Future.delayed(Duration(milliseconds: displayMs), () {
       if (mounted) setState(() => _mostrando = false);
     });
     _countdownTimer?.cancel();

@@ -1,5 +1,10 @@
 # RULES
 
+## Regla de Oro ⭐
+
+1. **No borrar archivos** - Si un archivo debe eliminarse, **no se borra**. Se mueve a la carpeta `olds/` en la raíz del proyecto.
+2. **No desinstalar la app del móvil** - Al subir al móvil usar `adb install -r build/app/outputs/flutter-apk/app-debug.apk` para **reemplazar** la app sin desinstalarla. No usar `flutter install` porque desinstala primero y obliga a esperar y autorizar permisos nuevamente.
+
 ## Reglas de desarrollo
 
 1. **No borrar, reemplazar** - Todo cambio debe reemplazar código existente, no eliminar funcionalidad sin reemplazo equivalente.
